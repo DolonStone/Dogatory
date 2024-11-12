@@ -15,4 +15,5 @@ public abstract class Soul : MonoBehaviour, ISoul
     public abstract void ChangeColour(Color newColour);
     public abstract void IdleMove();
     public abstract void MoveToPoint(Vector3 point);
+    public abstract Vector3 GetLocation();
 }

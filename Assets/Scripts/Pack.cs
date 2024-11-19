@@ -28,7 +28,6 @@ public class Pack : MonoBehaviour
         }
         else
         {
-            print("working");
             atPosition = false;
         }
 
@@ -71,7 +70,7 @@ public class Pack : MonoBehaviour
             
             if (soulsInPack[i] != null)
             {
-                            var difference = soulsInPack[i].GetLocation() - point;
+                var difference = soulsInPack[i].GetLocation() - point;
             
                 var xdif = Mathf.Round(difference.x/2*roundingRadius);
                 var ydif = Mathf.Round(difference.y/2*roundingRadius);

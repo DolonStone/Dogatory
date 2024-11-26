@@ -21,7 +21,7 @@ public class Pack : MonoBehaviour
     {
         bool targetexists = IsThereTarget("Pointer");
         
-        if (targetexists && !atPosition)
+        if (targetexists)
         {
             atPosition = MovePackToPoint(target.transform.position);
             print(target.transform.position);
@@ -83,9 +83,7 @@ public class Pack : MonoBehaviour
                     soulsInPack[i].MoveToPoint(point);
                 }
                 
-            }
-
-            
+            }  
         }
         if (withinRadiusCount == soulsInPack.Count()) 
         {

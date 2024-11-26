@@ -7,7 +7,7 @@ public class Pack : MonoBehaviour
 {
     [SerializeField] private Soul[] soulsInPack;
     [SerializeField] private int packSize = 15;
-    [SerializeField] private int roundingRadius = 5; // allows system to determine 
+    [SerializeField] private float roundingRadius = 0.5f; // allows system to determine 
     [SerializeField] private bool atPosition = false;
     GameObject target = null;
     bool full = false;
@@ -24,13 +24,9 @@ public class Pack : MonoBehaviour
         if (targetexists && !atPosition)
         {
             atPosition = MovePackToPoint(target.transform.position);
-            
+            print(target.transform.position);
         }
-        else
-        {
-            atPosition = false;
-        }
-
+        
         
     }
     private void AddToPack(Soul soul)
@@ -68,21 +64,25 @@ public class Pack : MonoBehaviour
         for (int i = 0; i < soulsInPack.Length; i++)
         {
             
-            if (soulsInPack[i] != null)
+            if (soulsInPack[i] != null) //this if statement checks if a soul is near enough its target point and if not it moves the soul
             {
-                var difference = soulsInPack[i].GetLocation() - point;
-            
-                var xdif = Mathf.Round(difference.x/2*roundingRadius);
-                var ydif = Mathf.Round(difference.y/2*roundingRadius);
-            
+                
 
-                if (xdif < 1 || ydif < 1)
+                var difference = soulsInPack[i].GetLocation() - point;
+                
+                var xdif = Mathf.Abs(difference.x);
+                var ydif = Mathf.Abs(difference.y);
+                if (xdif < roundingRadius && ydif < roundingRadius)
                 {
+                    print(xdif);
                     withinRadiusCount++;
 
                 }
+                else
+                {
+                    soulsInPack[i].MoveToPoint(point);
+                }
                 
-                soulsInPack[i].MoveToPoint(point);
             }
 
             

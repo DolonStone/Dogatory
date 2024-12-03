@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PassiveSoul : Soul
@@ -42,6 +43,11 @@ public class PassiveSoul : Soul
     }
     public override void MakeAvailable()
     {
+
+        if (SelectionManager.Instance)
+        {
+            Debug.Log("jfgjgfju");
+        }
         SelectionManager.Instance.AddToAvailable(this);
     }
 }

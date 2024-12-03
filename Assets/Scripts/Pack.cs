@@ -12,6 +12,10 @@ public class Pack : MonoBehaviour
     GameObject target = null;
     bool full = false;
     Color packColour = Color.red;
+    public void SetPackSize(int packSize)
+    {
+        this.packSize = packSize;
+    }
 
     private void Start()
     {
@@ -24,12 +28,13 @@ public class Pack : MonoBehaviour
         if (targetexists)
         {
             atPosition = MovePackToPoint(target.transform.position);
-            print(target.transform.position);
+            
         }
         
         
     }
-    private void AddToPack(Soul soul)
+
+    public void AddToPack(Soul soul)
     {
         full = true;
         int topEmpty = 0;
@@ -47,7 +52,7 @@ public class Pack : MonoBehaviour
             soulsInPack[topEmpty] = soul;
         }
     }
-    private void RemoveFromPack(Soul soul)
+    public void RemoveFromPack(Soul soul)
     {
         for (int i = 0; i < soulsInPack.Length; i++)
         {
@@ -74,7 +79,7 @@ public class Pack : MonoBehaviour
                 var ydif = Mathf.Abs(difference.y);
                 if (xdif < roundingRadius && ydif < roundingRadius)
                 {
-                    print(xdif);
+                    
                     withinRadiusCount++;
 
                 }

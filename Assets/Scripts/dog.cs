@@ -18,23 +18,17 @@ public class dog : MonoBehaviour
     {
         
     }
-
     // Update is called once per frame
     void Update()
     {
-        
-
         if(shouldMove == true)
         {
-
             CheckAndMove(movePointer);
         }
         else
         {
             LookForTarget(pointerTag);
         }
-        
-        
     }
     private void LookForTarget(string tag)
     {

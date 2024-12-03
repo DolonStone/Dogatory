@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     private GameObject currentPointer;
     [SerializeField] private RectTransform SelectionBox;
     private Vector2 StartMousePosition;
+    Camera cam;
 
     private void Update()
     {
@@ -18,11 +19,15 @@ public class PlayerInput : MonoBehaviour
         }
         SelectionBoxController();
     }
-
+    private void Start()
+    {
+        cam = FindAnyObjectByType<Camera>();
+    }
     private void SelectionBoxController()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            SelectionManager.Instance.RemoveAll();
             SelectionBox.sizeDelta = Vector2.zero;
             SelectionBox.gameObject.SetActive(true);
             StartMousePosition = Input.mousePosition;
@@ -35,6 +40,7 @@ public class PlayerInput : MonoBehaviour
         {
             SelectionBox.sizeDelta = Vector2.zero;
             SelectionBox.gameObject.SetActive(false);
+
         }
     }
     private void ResizeSelectionBox()
@@ -44,6 +50,26 @@ public class PlayerInput : MonoBehaviour
 
         SelectionBox.anchoredPosition = StartMousePosition + new Vector2(width/2, height/2);
         SelectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
+        Bounds bounds = new Bounds(SelectionBox.anchoredPosition, SelectionBox.sizeDelta);
+
+        foreach(Soul soul in SelectionManager.Instance.GetAvailableSouls())
+        {
+            if(IsInBounds(bounds,cam.WorldToScreenPoint(soul.transform.position)))
+            {
+                
+                SelectionManager.Instance.SelectSoul(soul);
+            }
+            else
+            {
+                SelectionManager.Instance.RemoveSoul(soul);
+            }
+        }
     }
     
+
+    private bool IsInBounds(Bounds bounds, Vector2 position)
+    {
+        
+        return bounds.Contains(position);
+    }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PassiveSoul : Soul
 {
+
     public override void ChangeColour(Color newColour)
     {
         throw new System.NotImplementedException();
@@ -35,6 +36,12 @@ public class PassiveSoul : Soul
         }
         
     }
-
-
+    private void Awake()
+    {
+        MakeAvailable();
+    }
+    public override void MakeAvailable()
+    {
+        SelectionManager.Instance.AddToAvailable(this);
+    }
 }

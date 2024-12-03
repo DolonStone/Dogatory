@@ -7,6 +7,7 @@ public interface ISoul
     void MoveToPoint(Vector3 point);
     void IdleMove();
     void ChangeColour(Color newColour);
+    void MakeAvailable();
 }
 public abstract class Soul : MonoBehaviour, ISoul
 {
@@ -16,4 +17,6 @@ public abstract class Soul : MonoBehaviour, ISoul
     public abstract void IdleMove();
     public abstract void MoveToPoint(Vector3 point);
     public abstract Vector3 GetLocation();
+
+    public abstract void MakeAvailable();
 }

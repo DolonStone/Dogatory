@@ -6,7 +6,7 @@ public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private GameObject pointerPrefab;
     private GameObject currentPointer;
-    private RectTransform SelectionBox;
+    [SerializeField] private RectTransform SelectionBox;
     private Vector2 StartMousePosition;
 
     private void Update()
@@ -16,6 +16,11 @@ public class PlayerInput : MonoBehaviour
             Destroy(currentPointer);
             currentPointer = Instantiate(pointerPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), new Quaternion(0f, 0f, 0f, 0f));
         }
+        SelectionBoxController();
+    }
+
+    private void SelectionBoxController()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             SelectionBox.sizeDelta = Vector2.zero;
@@ -34,7 +39,11 @@ public class PlayerInput : MonoBehaviour
     }
     private void ResizeSelectionBox()
     {
+        float width = Input.mousePosition.x - StartMousePosition.x;
+        float height = Input.mousePosition.y - StartMousePosition.y;  
 
+        SelectionBox.anchoredPosition = StartMousePosition + new Vector2(width/2, height/2);
+        SelectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
     }
     
 }

@@ -19,6 +19,7 @@ public class PackController : MonoBehaviour
     {
 
         packs = new Pack[numPacks];
+
         for (int i = 0; i < packs.Length; i++)
         {
             GameObject PackHolder = new GameObject();

@@ -12,11 +12,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Destroy(currentPointer);
-            currentPointer = Instantiate(pointerPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), new Quaternion(0f, 0f, 0f, 0f));
-        }
+        PointerController();
         SelectionBoxController();
     }
     private void Start()
@@ -66,7 +62,21 @@ public class PlayerInput : MonoBehaviour
         }
     }
     
-
+    private void PointerController()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            
+            int pointerNumber = SelectionManager.Instance.selectedPack;
+            if(GameObject.FindGameObjectWithTag("pointer" + pointerNumber))
+            {
+                Destroy(GameObject.FindGameObjectWithTag("pointer" + pointerNumber));
+            }
+            
+            GameObject newpointer = Instantiate(pointerPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), new Quaternion(0f, 0f, 0f, 0f));
+            newpointer.tag = "pointer" + pointerNumber;
+        }
+    }
     private bool IsInBounds(Bounds bounds, Vector2 position)
     {
         

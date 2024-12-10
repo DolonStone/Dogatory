@@ -7,11 +7,13 @@ public class Pack : MonoBehaviour
 {
     [SerializeField] private Soul[] soulsInPack;
     [SerializeField] private int packSize = 15;
-    [SerializeField] private float roundingRadius = 0.5f; // allows system to determine 
+    [SerializeField] private float roundingRadius = 0.25f; // allows system to determine 
     [SerializeField] private bool atPosition = false;
-    GameObject target = null;
-    bool full = false;
-    Color packColour = Color.red;
+
+    private GameObject target = null;
+    private bool full = false;
+    public Color packColour = Color.red;
+    public string packPointer;
     public void SetPackSize(int packSize)
     {
         this.packSize = packSize;
@@ -19,29 +21,39 @@ public class Pack : MonoBehaviour
 
     private void Start()
     {
-        //soulsInPack = new Soul[packSize];
+        soulsInPack = new Soul[packSize];
     }
     private void Update()
     {
-        bool targetexists = IsThereTarget("Pointer");
+        bool targetexists = IsThereTarget(packPointer);
         
         if (targetexists)
         {
             atPosition = MovePackToPoint(target.transform.position);
             
         }
-        
-        
+        if (atPosition)
+        {
+            
+            Destroy(target);
+        }
+        //print(atPosition);
     }
-
+    public void Empty()
+    {
+        soulsInPack = new Soul[packSize];
+    }
     public void AddToPack(Soul soul)
     {
+        
         full = true;
         int topEmpty = 0;
         for (int i = 0; i < soulsInPack.Length; i++)
         {
+            
             if (soulsInPack[i] == null)
             {
+                
                 topEmpty = i;
                 full = false;
                 break;
@@ -49,6 +61,7 @@ public class Pack : MonoBehaviour
         }
         if (!full)
         {
+            
             soulsInPack[topEmpty] = soul;
         }
     }
@@ -62,17 +75,29 @@ public class Pack : MonoBehaviour
             }
         }
     }
+    public void ChangePackColor(int num)
+    {
+        for (int i = 0; i < soulsInPack.Length; i++)
+        {
+            if(soulsInPack[i]!= null)
+            {
+                soulsInPack[i].ChangeColour(num);
+            }
+            
+        }
+    }
     private bool MovePackToPoint(Vector3 point)
     {
         
         int withinRadiusCount = 0;
+        int totalSoulsCount = 0;
         for (int i = 0; i < soulsInPack.Length; i++)
         {
             
             if (soulsInPack[i] != null) //this if statement checks if a soul is near enough its target point and if not it moves the soul
             {
-                
 
+                totalSoulsCount += 1;
                 var difference = soulsInPack[i].GetLocation() - point;
                 
                 var xdif = Mathf.Abs(difference.x);
@@ -90,22 +115,28 @@ public class Pack : MonoBehaviour
                 
             }  
         }
-        if (withinRadiusCount == soulsInPack.Count()) 
+        if (withinRadiusCount == totalSoulsCount) 
         {
             return true; 
         }
         else
         {
+            print(withinRadiusCount);
             return false;
         }
     }
     private bool IsThereTarget(string tag)
     {
-        if (GameObject.FindGameObjectWithTag(tag) != null)
+
+        if (tag != null && GameObject.FindGameObjectWithTag(tag) != null)
         {
             target = GameObject.FindGameObjectWithTag(tag);
             return true;
         }
         return false;
+    }
+    public Soul[] GetSoulsInPack()
+    {
+        return soulsInPack;
     }
 }

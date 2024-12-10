@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Pointer
   - GhostTarget
+  - pointer1
+  - pointer2
+  - pointer3
+  - pointer4
+  - pointer5
+  - pointer6
+  - pointer7
+  - pointer8
+  - pointer9
   layers:
   - Default
   - TransparentFX

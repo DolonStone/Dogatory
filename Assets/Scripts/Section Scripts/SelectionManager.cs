@@ -23,12 +23,16 @@ public class SelectionManager : MonoBehaviour
         selectedSouls = new List<Soul>();
     }
     [SerializeField] private HashSet<Soul> availableSouls;
-    
     [SerializeField] private List<Soul> selectedSouls;
+    public int selectedPack = 0;
     
     public void SelectSoul(Soul soul)
     {
-        selectedSouls.Add(soul);
+        if (!selectedSouls.Contains(soul))
+        {
+            selectedSouls.Add(soul);
+        }
+            
     }
     public void RemoveSoul(Soul soul)
     {
@@ -40,8 +44,11 @@ public class SelectionManager : MonoBehaviour
     }
     public void AddToAvailable(Soul soul)
     {
-        availableSouls.Add(soul);
-        Debug.Log(availableSouls.Count);
+        if (!availableSouls.Contains(soul))
+        {
+            availableSouls.Add(soul);
+        }
+        
     }
     public HashSet<Soul> GetAvailableSouls()
     {

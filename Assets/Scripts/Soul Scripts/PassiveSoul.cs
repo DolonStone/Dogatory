@@ -6,9 +6,9 @@ using UnityEngine;
 public class PassiveSoul : Soul
 {
 
-    public override void ChangeColour(Color newColour)
+    public override void ChangeColour(int packNumber)
     {
-        throw new System.NotImplementedException();
+        GetComponentInChildren<Orienter>().ChangeColour(packNumber);
     }
 
     public override Vector3 GetLocation()
@@ -28,26 +28,27 @@ public class PassiveSoul : Soul
         float angleToTarget = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg; 
         Quaternion rotationToTarget = Quaternion.AngleAxis(angleToTarget, Vector3.forward); //Calculates the rotation needed to make the object face the point
         float roundedAngle = Mathf.Round(angleToTarget / 10) * 10;//rounds the rotation
-        if (roundedAngle < 0) { roundedAngle += 360; }//translates to quaternion
+        if (roundedAngle <= 0) { roundedAngle += 360; }//translates to quaternion
 
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationToTarget, Time.deltaTime * turnSpeed); //breaks the rotation into a series of steps to make it smoother
-        if (Mathf.Round(transform.rotation.eulerAngles.z / 10) * 10 == roundedAngle) //Compares the rounded current roation to the rounded requiered roatation so the object can start moving towards the point when it is "near enough" to facing the point
+        print((Mathf.Round(transform.rotation.eulerAngles.z / 10) * 10).ToString()  + "//" + roundedAngle.ToString());
+
+        if (Mathf.Round(transform.rotation.eulerAngles.z / 10) * 10 == roundedAngle || Mathf.Round(transform.rotation.eulerAngles.z / 10) * 10 == 0 && roundedAngle ==360) //Compares the rounded current roation to the rounded requiered roatation so the object can start moving towards the point when it is "near enough" to facing the point
         {
+            
             transform.position += speed * Time.deltaTime * transform.right; //Moves the object forwards
         }
         
     }
-    private void Awake()
+    private void OnEnable()
     {
         MakeAvailable();
     }
+
     public override void MakeAvailable()
     {
 
-        if (SelectionManager.Instance)
-        {
-            Debug.Log("jfgjgfju");
-        }
-        SelectionManager.Instance.AddToAvailable(this);
+
+        SelectionManager.Instance.AddToAvailable(gameObject.GetComponent<Soul>());
     }
 }

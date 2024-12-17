@@ -41,6 +41,14 @@ public class Pack : MonoBehaviour
     }
     public void Empty()
     {
+        for(int i = 0; i < soulsInPack.Length; i++)
+        {
+            if (soulsInPack[i] != null)
+            {
+                soulsInPack[i].FireSwitch(false);
+            }
+                
+        }
         soulsInPack = new Soul[packSize];
     }
     public void AddToPack(Soul soul)
@@ -81,6 +89,7 @@ public class Pack : MonoBehaviour
         {
             if(soulsInPack[i]!= null)
             {
+                soulsInPack[i].FireSwitch(true);
                 soulsInPack[i].ChangeColour(num);
             }
             

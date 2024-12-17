@@ -6,6 +6,8 @@ public class InventoryController : MonoBehaviour
 {
     [SerializeField]
     private GameObject inventorySlotPrefab;
+    [SerializeField]
+    private GameObject fire;
     private List<GameObject> inventorySlots;
     [SerializeField] private List<RuntimeAnimatorController> animatorControllers;
     private void Start()
@@ -20,8 +22,14 @@ public class InventoryController : MonoBehaviour
 
         }
     }
+    private void Update()
+    {
+        for(int i = 0;i<inventorySlots.Count;i++)
+        {
+            inventorySlots[i].GetComponentInChildren<SoulContainer>().updateContent(animatorControllers[i],i);
+        }
+    }
 
 
-
-
+    
 }

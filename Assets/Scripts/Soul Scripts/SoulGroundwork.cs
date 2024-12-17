@@ -9,6 +9,7 @@ public interface ISoul
     void ChangeColour(int packNumber);
     void MakeAvailable();
     void HighlighterSwitch(bool thisBool);
+    void FireSwitch(bool thisBool);
 }
 public abstract class Soul : MonoBehaviour, ISoul
 {
@@ -22,5 +23,6 @@ public abstract class Soul : MonoBehaviour, ISoul
     public abstract void MakeAvailable();
 
     public abstract void HighlighterSwitch(bool thisBool);
+    public abstract void FireSwitch(bool thisBool);
 
 }

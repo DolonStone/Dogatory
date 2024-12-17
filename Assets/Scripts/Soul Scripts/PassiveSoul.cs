@@ -7,11 +7,18 @@ public class PassiveSoul : Soul
 {
     [SerializeField]
     private SpriteRenderer highlighter;
+    [SerializeField]
+    private GameObject fire;
     public override void ChangeColour(int packNumber)
     {
-        GetComponentInChildren<Orienter>().ChangeColour(packNumber);
+        FireSwitch(true);
+        fire.GetComponent<Orienter>().ChangeColour(packNumber);
     }
-
+    public override void FireSwitch(bool thisBool)
+    {
+        
+        fire.SetActive(thisBool);
+    }
     public override Vector3 GetLocation()
     {
         return gameObject.transform.position;
@@ -44,6 +51,8 @@ public class PassiveSoul : Soul
     private void OnEnable()
     {
         MakeAvailable();
+        fire = GetComponentInChildren<Orienter>().gameObject;
+        FireSwitch(false);
         //highlighter = gameObject.GetComponentInChildren<SpriteRenderer>();
     }
 

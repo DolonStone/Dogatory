@@ -56,8 +56,7 @@ public class PackController : MonoBehaviour
 
         if (Input.inputString != "")
         {
-            int number;
-            bool isANumber = Int32.TryParse(Input.inputString, out number);//tests if the input is a number
+            bool isANumber = Int32.TryParse(Input.inputString, out int number);//tests if the input is a number
             if (isANumber && number >= 0 && number <= numPacks)
             {
 
@@ -66,6 +65,7 @@ public class PackController : MonoBehaviour
 
                 if (SelectionManager.Instance.GetSelectedSouls().Count > 0) //if souls are selected it makes a new pack, if not it just sets the selected pack
                 {
+
                     EmptyPack(selectedPack);
                     CreatePack(SelectionManager.Instance.GetSelectedSouls(), selectedPack);
                 }

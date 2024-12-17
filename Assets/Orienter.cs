@@ -23,6 +23,10 @@ public class Orienter : MonoBehaviour
     }
     public void ChangeColour(int number)
     {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
         animator.runtimeAnimatorController = animatorControllers[number-1];
     }
 }

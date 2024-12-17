@@ -121,7 +121,7 @@ public class Pack : MonoBehaviour
         }
         else
         {
-            print(withinRadiusCount);
+            
             return false;
         }
     }

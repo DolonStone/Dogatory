@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PassiveSoul : Soul
 {
-
+    [SerializeField]
+    private SpriteRenderer highlighter;
     public override void ChangeColour(int packNumber)
     {
         GetComponentInChildren<Orienter>().ChangeColour(packNumber);
@@ -31,7 +32,7 @@ public class PassiveSoul : Soul
         if (roundedAngle <= 0) { roundedAngle += 360; }//translates to quaternion
 
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationToTarget, Time.deltaTime * turnSpeed); //breaks the rotation into a series of steps to make it smoother
-        print((Mathf.Round(transform.rotation.eulerAngles.z / 10) * 10).ToString()  + "//" + roundedAngle.ToString());
+        
 
         if (Mathf.Round(transform.rotation.eulerAngles.z / 10) * 10 == roundedAngle || Mathf.Round(transform.rotation.eulerAngles.z / 10) * 10 == 0 && roundedAngle ==360) //Compares the rounded current roation to the rounded requiered roatation so the object can start moving towards the point when it is "near enough" to facing the point
         {
@@ -43,12 +44,22 @@ public class PassiveSoul : Soul
     private void OnEnable()
     {
         MakeAvailable();
+        //highlighter = gameObject.GetComponentInChildren<SpriteRenderer>();
     }
 
     public override void MakeAvailable()
     {
-
-
         SelectionManager.Instance.AddToAvailable(gameObject.GetComponent<Soul>());
+    }
+    public override void HighlighterSwitch(bool thisBool)
+    {
+        if (thisBool)
+        {
+            highlighter.gameObject.SetActive(true);
+        }
+        else
+        {
+            highlighter.gameObject.SetActive(false);
+        }
     }
 }

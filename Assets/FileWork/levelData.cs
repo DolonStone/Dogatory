@@ -4,9 +4,26 @@ using UnityEngine;
 using System.IO;
 public class levelData : MonoBehaviour
 {
+    private static levelData instance;
+    public static levelData Instance { get { return instance; } }
+    private void Start()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+        Initialize(starScore, completed);
+    }
+
     private Memento state;
-    [SerializeField] private int starScore = 0;
-    [SerializeField] private bool completed = false;
+    [SerializeField] public int starScore = 0;
+    [SerializeField] public bool completed = false;
+    [SerializeField] public int numPacks;
+    [SerializeField] public int numInPacks;
     
 
     public void Initialize(int starScore, bool completed)
@@ -23,8 +40,5 @@ public class levelData : MonoBehaviour
         starScore = state.starScore;
         completed = state.completed;
     }
-    private void Start()
-    {
-        Initialize(starScore, completed);
-    }
+
 }

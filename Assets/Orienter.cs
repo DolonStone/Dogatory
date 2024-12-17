@@ -15,7 +15,7 @@ public class Orienter : MonoBehaviour
         animator.Play(state.fullPathHash, 0, Random.Range(0f, 1f));
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         this.transform.rotation = Quaternion.Euler(0, 0, -parentTransform.rotation.z);

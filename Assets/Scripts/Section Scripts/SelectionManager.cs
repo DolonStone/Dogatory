@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
-    private static readonly object padlock = new object();
+    
     private static SelectionManager instance;
     
     public static SelectionManager Instance {  get { return instance; } }
@@ -30,23 +30,34 @@ public class SelectionManager : MonoBehaviour
     {
         if (!selectedSouls.Contains(soul))
         {
+            soul.HighlighterSwitch(true);
             selectedSouls.Add(soul);
+            
         }
             
     }
     public void RemoveSoul(Soul soul)
     {
+        soul.HighlighterSwitch(false);
         selectedSouls.Remove(soul);
+        
     }
     public void RemoveAll()
     {
-        selectedSouls.Clear();
+        while (selectedSouls.Count>0)
+        {
+            RemoveSoul(selectedSouls[0]);
+            Debug.Log(selectedSouls.Count);
+        }
+
+        //selectedSouls.Clear();
     }
     public void AddToAvailable(Soul soul)
     {
         if (!availableSouls.Contains(soul))
         {
             availableSouls.Add(soul);
+            
         }
         
     }

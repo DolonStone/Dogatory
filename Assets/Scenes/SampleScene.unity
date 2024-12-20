@@ -735,7 +735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1201451824}
-  - component: {fileID: 1201451823}
+  - component: {fileID: 1201451825}
   m_Layer: 0
   m_Name: SelectionManager
   m_TagString: Untagged
@@ -743,20 +743,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1201451823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201451822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40217576c309f1a48b3493efa4e0585a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedSouls: []
-  selectedPack: 0
 --- !u!4 &1201451824
 Transform:
   m_ObjectHideFlags: 0
@@ -772,6 +758,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201451825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201451822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8a21c62303f9147a1ea0206d0bbc36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedSouls: []
+  selectedPack: 0
 --- !u!1001 &1488047696
 PrefabInstance:
   m_ObjectHideFlags: 0

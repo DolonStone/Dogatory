@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectionManager : MonoBehaviour
+public class SelectionManagerUNUSED : MonoBehaviour
 {
     
-    private static SelectionManager instance;
+    private static SelectionManagerUNUSED instance;
     
-    public static SelectionManager Instance {  get { return instance; } }
+    public static SelectionManagerUNUSED Instance {  get { return instance; } }
 
     private void Awake()
     {

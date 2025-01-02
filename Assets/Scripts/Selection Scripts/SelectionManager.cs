@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private HashSet<Soul> availableSouls;
     [SerializeField] private List<Soul> selectedSouls;
     public int selectedPack = 0;
-    
+    public event Action soulDestruction = delegate { };
     public void SelectSoul(Soul soul)
     {
         if (!selectedSouls.Contains(soul))
@@ -60,6 +61,11 @@ public class SelectionManager : MonoBehaviour
             
         }
         
+    }
+    public void RemoveFromAvailable(Soul soul)
+    {
+        availableSouls.Remove(soul);
+        soulDestruction.Invoke();
     }
     public HashSet<Soul> GetAvailableSouls()
     {

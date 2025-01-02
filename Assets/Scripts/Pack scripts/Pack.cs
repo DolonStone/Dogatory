@@ -26,42 +26,42 @@ public class Pack : MonoBehaviour
     private void Update()
     {
         bool targetexists = IsThereTarget(packPointer);
-        
+
         if (targetexists)
         {
             atPosition = MovePackToPoint(target.transform.position);
-            
+
         }
         if (atPosition)
         {
-            
+
             Destroy(target);
         }
         //print(atPosition);
     }
     public void Empty()
     {
-        for(int i = 0; i < soulsInPack.Length; i++)
+        for (int i = 0; i < soulsInPack.Length; i++)
         {
             if (soulsInPack[i] != null)
             {
                 soulsInPack[i].FireSwitch(false);
             }
-                
+
         }
         soulsInPack = new Soul[packSize];
     }
     public void AddToPack(Soul soul)
     {
-        
+
         full = true;
         int topEmpty = 0;
         for (int i = 0; i < soulsInPack.Length; i++)
         {
-            
+
             if (soulsInPack[i] == null)
             {
-                
+
                 topEmpty = i;
                 full = false;
                 break;
@@ -69,7 +69,7 @@ public class Pack : MonoBehaviour
         }
         if (!full)
         {
-            
+
             soulsInPack[topEmpty] = soul;
         }
     }
@@ -87,33 +87,33 @@ public class Pack : MonoBehaviour
     {
         for (int i = 0; i < soulsInPack.Length; i++)
         {
-            if(soulsInPack[i]!= null)
+            if (soulsInPack[i] != null)
             {
                 soulsInPack[i].FireSwitch(true);
                 soulsInPack[i].ChangeColour(num);
             }
-            
+
         }
     }
     private bool MovePackToPoint(Vector3 point)
     {
-        
+
         int withinRadiusCount = 0;
         int totalSoulsCount = 0;
         for (int i = 0; i < soulsInPack.Length; i++)
         {
-            
+
             if (soulsInPack[i] != null) //this if statement checks if a soul is near enough its target point and if not it moves the soul
             {
 
                 totalSoulsCount += 1;
                 var difference = soulsInPack[i].GetLocation() - point;
-                
+
                 var xdif = Mathf.Abs(difference.x);
                 var ydif = Mathf.Abs(difference.y);
                 if (xdif < roundingRadius && ydif < roundingRadius)
                 {
-                    
+
                     withinRadiusCount++;
 
                 }
@@ -121,16 +121,16 @@ public class Pack : MonoBehaviour
                 {
                     soulsInPack[i].MoveToPoint(point);
                 }
-                
-            }  
+
+            }
         }
-        if (withinRadiusCount == totalSoulsCount) 
+        if (withinRadiusCount == totalSoulsCount)
         {
-            return true; 
+            return true;
         }
         else
         {
-            
+
             return false;
         }
     }
@@ -147,5 +147,17 @@ public class Pack : MonoBehaviour
     public Soul[] GetSoulsInPack()
     {
         return soulsInPack;
+    }
+    public int GetNumberOfSouls()
+    {
+        int total = 0;
+        for(int i = 0; i < soulsInPack.Length; i++)
+        {
+            if (soulsInPack[i] != null)
+            {
+                total += 1;
+            }
+        }
+        return total;
     }
 }

@@ -14,10 +14,11 @@ public class PackController : MonoBehaviour
     private Pack[] packs;
     [SerializeField]
     private int selectedPack;
+    public event Action<int,int> PackCreation = delegate { };
 
     private void Start()
     {
-
+        SelectionManager.Instance.soulDestruction += RefreshAll;
         packs = new Pack[numPacks];
 
         for (int i = 0; i < packs.Length; i++)
@@ -31,7 +32,9 @@ public class PackController : MonoBehaviour
     }
     private void CreatePack(List<Soul> souls,int selectedPack)
     {
+        
         CheckForDupes(souls,selectedPack);
+        PackCreation.Invoke(selectedPack, souls.Count);
         for (int i = 0;i < souls.Count; i++)
         {
             if (i <= numInPack)
@@ -45,7 +48,9 @@ public class PackController : MonoBehaviour
     }
     private void EmptyPack(int selectedPack)
     {
+        
         packs[selectedPack - 1].Empty();
+        
     }
     private void Update()
     {
@@ -75,6 +80,14 @@ public class PackController : MonoBehaviour
         }
 
     }
+    private void RefreshAll()
+    {
+        for(int i=0; i < numPacks; i++)
+        {
+            PackCreation.Invoke(i + 1, packs[i].GetNumberOfSouls()); //FIX THIS IT DONT WORK
+                
+        }
+    }
     private void CheckForDupes(List<Soul> souls,int selectedPack)
     {
         for (int k = 0; k < souls.Count; k++)
@@ -86,7 +99,9 @@ public class PackController : MonoBehaviour
                     Soul tempSoul = packs[i].GetSoulsInPack()[j];
                     if (souls[k] == tempSoul)
                     {
+                        
                         packs[i].RemoveFromPack(tempSoul);
+                        PackCreation.Invoke(i+1, packs[i].GetNumberOfSouls());
                     }
                 }
             }

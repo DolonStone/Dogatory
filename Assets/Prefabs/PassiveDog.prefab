@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 178714110540765152}
   - component: {fileID: 2370627161234029636}
+  - component: {fileID: 3281886697472070216}
   m_Layer: 0
   m_Name: Highlighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &178714110540765152
 Transform:
   m_ObjectHideFlags: 0
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3281886697472070216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2971627144828193206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283398d4ae936a849bf7f12aaf9c1642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4500985073515634739
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.01
   turnSpeed: 52.2
-  highlighter: {fileID: 2370627161234029636}
+  highlighter: {fileID: 0}
+  fire: {fileID: 0}
 --- !u!58 &6098564176417716815
 CircleCollider2D:
   m_ObjectHideFlags: 0

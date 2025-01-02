@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class SoulContainer : MonoBehaviour
 {
+    [SerializeField]
     private int soulCount;
     [SerializeField]
     private GameObject firePrefab;
-    private int invSlot;
-    public void updateContent(RuntimeAnimatorController runtimeAnimatorController, int invSlot)
+    
+    public void updateContent(RuntimeAnimatorController runtimeAnimatorController) // changes the number of contained soul sprites in this slot
     {
         if (this.transform.childCount!=soulCount)
         {
-            foreach(Transform children in transform.GetComponentsInChildren<Transform>())
+            foreach(Animator children in transform.GetComponentsInChildren<Animator>())
             {
-                Destroy(children);
+                Destroy(children.gameObject);
             }
-            for (int i = 1; i < soulCount; i++)
+            for (int i = 1; i <= soulCount; i++)
             {
                 GameObject tempSoul = Instantiate(firePrefab);
                 tempSoul.transform.SetParent(this.transform);
@@ -27,4 +28,5 @@ public class SoulContainer : MonoBehaviour
 
 
     }
+    public void SetSoulCount(int count) { soulCount = count; }
 }

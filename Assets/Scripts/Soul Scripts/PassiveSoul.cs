@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PassiveSoul : Soul
 {
-    [SerializeField]
-    private SpriteRenderer highlighter;
+
     [SerializeField]
     private GameObject fire;
     public override void ChangeColour(int packNumber)
@@ -53,22 +52,14 @@ public class PassiveSoul : Soul
         MakeAvailable();
         fire = GetComponentInChildren<Orienter>().gameObject;
         FireSwitch(false);
+        highlighter = GetComponentInChildren<Highlighter>();
+        highlighter.gameObject.SetActive(false);
         //highlighter = gameObject.GetComponentInChildren<SpriteRenderer>();
     }
+    private void OnDestroy()
+    {
+        MakeUnAvailable();
+    }
 
-    public override void MakeAvailable()
-    {
-        SelectionManager.Instance.AddToAvailable(gameObject.GetComponent<Soul>());
-    }
-    public override void HighlighterSwitch(bool thisBool)
-    {
-        if (thisBool)
-        {
-            highlighter.gameObject.SetActive(true);
-        }
-        else
-        {
-            highlighter.gameObject.SetActive(false);
-        }
-    }
+
 }

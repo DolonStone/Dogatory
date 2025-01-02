@@ -61,6 +61,12 @@ public class SelectionManagerUNUSED : MonoBehaviour
         }
         
     }
+
+    public void RemoveFromAvailable(Soul soul)
+    {
+        availableSouls.Remove(soul);
+    }
+
     public HashSet<Soul> GetAvailableSouls()
     {
         return availableSouls;

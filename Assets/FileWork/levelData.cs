@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 public class levelData : MonoBehaviour
 {
     private static levelData instance;
     public static levelData Instance { get { return instance; } }
     private void Start()
     {
+        Load(0);
         if (instance != null)
         {
             Destroy(gameObject);
@@ -16,29 +18,51 @@ public class levelData : MonoBehaviour
         {
             instance = this;
         }
-        Initialize(starScore, completed);
+        
     }
 
-    private Memento state;
-    [SerializeField] public int starScore = 0;
-    [SerializeField] public bool completed = false;
-    [SerializeField] public int numPacks;
-    [SerializeField] public int numInPacks;
+    private AllLevelData state;
+    public int starScore = 0;
+    public bool completed = false;
+    public int numPacks;
+    public int numInPacks;
+    [SerializeField]
+    private GameObject menu;
+    [SerializeField]
+    private TextAsset levelDataTextFile;
+
+
+    public void Save()
+    {
+        File.WriteAllText(Application.dataPath+ "/FileWork/TextLevelData.txt",JsonUtility.ToJson(state));
+    }
+    public void Load(int level) //loads the level data from inputted level
+    {
+        
+        state = JsonUtility.FromJson<AllLevelData>(levelDataTextFile.text);
+        starScore = state.LevelDataList[level].starScore;
+        completed = state.LevelDataList[level].completed;
+        numPacks = state.LevelDataList[level].numPacks;
+        numInPacks = state.LevelDataList[level].numInPacks;
+    }
+    public void OpenCloseMenu()
+    {
+        if (menu.activeSelf)
+        {
+            menu.SetActive(false);
+        }
+        else
+        {
+            menu.SetActive(true);
+        }
+    }
+    public void LoadLevel(int level)
+    {
+
+        Load(level);
+        menu.SetActive(false);
+        SceneManager.LoadScene(level);
+
+    }
     
-
-    public void Initialize(int starScore, bool completed)
-    {
-        state = new Memento(starScore,completed);
-    }
-    public string Save()
-    {
-        return JsonUtility.ToJson(state);
-    }
-    public void Load(string savedData)
-    {
-        state = JsonUtility.FromJson<Memento>(savedData);
-        starScore = state.starScore;
-        completed = state.completed;
-    }
-
 }

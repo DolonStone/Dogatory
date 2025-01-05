@@ -18,6 +18,8 @@ public class PackController : MonoBehaviour
 
     private void Start()
     {
+        numPacks = levelData.Instance.numPacks;
+        numInPack = levelData.Instance.numInPacks;
         SelectionManager.Instance.soulDestruction += RefreshAll;
         packs = new Pack[numPacks];
 
@@ -80,10 +82,12 @@ public class PackController : MonoBehaviour
         }
 
     }
-    private void RefreshAll()
+    private void RefreshAll(Soul soul)
     {
         for(int i=0; i < numPacks; i++)
         {
+            packs[i].RemoveFromPack(soul);
+            
             PackCreation.Invoke(i + 1, packs[i].GetNumberOfSouls()); //FIX THIS IT DONT WORK
                 
         }

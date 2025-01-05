@@ -6,7 +6,7 @@ public class InventoryController : MonoBehaviour
 {
     [SerializeField]
     private GameObject inventorySlotPrefab;
-    [SerializeField]
+    [SerializeField] 
     private GameObject fire;
     private List<GameObject> inventorySlots;
     [SerializeField] private List<RuntimeAnimatorController> animatorControllers;
@@ -35,8 +35,13 @@ public class InventoryController : MonoBehaviour
 
     public void UpdateSoulContainer(int packnumber,int soulNum)
     {
-        inventorySlots[packnumber-1].GetComponentInChildren<SoulContainer>().SetSoulCount(soulNum);
-        inventorySlots[packnumber-1].GetComponentInChildren<SoulContainer>().updateContent(animatorControllers[packnumber-1]);
+        if(inventorySlots[packnumber - 1] != null)
+        {
+            inventorySlots[packnumber - 1].GetComponentInChildren<SoulContainer>().SetSoulCount(soulNum);
+            inventorySlots[packnumber - 1].GetComponentInChildren<SoulContainer>().updateContent(animatorControllers[packnumber - 1]);
+        }
+        
+
     }
     
 }

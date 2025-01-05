@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private GameObject pointerPrefab;
@@ -21,23 +21,30 @@ public class PlayerInput : MonoBehaviour
     }
     private void SelectionBoxController()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            SelectionManager.Instance.RemoveAll();
-            SelectionBox.sizeDelta = Vector2.zero;
-            SelectionBox.gameObject.SetActive(true);
-            StartMousePosition = Input.mousePosition;
-        }
-        else if (Input.GetKey(KeyCode.Mouse0))
-        {
-            ResizeSelectionBox();
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            SelectionBox.sizeDelta = Vector2.zero;
-            SelectionBox.gameObject.SetActive(false);
+        
+        
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;
+                }
+                SelectionManager.Instance.RemoveAll();
+                SelectionBox.sizeDelta = Vector2.zero;
+                SelectionBox.gameObject.SetActive(true);
+                StartMousePosition = Input.mousePosition;
+            }
+            else if (Input.GetKey(KeyCode.Mouse0))
+            {
+                ResizeSelectionBox();
+            }
+            else if (Input.GetKeyUp(KeyCode.Mouse0))
+            {
+                SelectionBox.sizeDelta = Vector2.zero;
+                SelectionBox.gameObject.SetActive(false);
 
-        }
+            }
+        
     }
     private void ResizeSelectionBox()
     {

@@ -8,6 +8,15 @@ public class PassiveSoul : Soul
 
     [SerializeField]
     private GameObject fire;
+    private bool idleSwitch;
+    private Quaternion idleRotation;
+    private float idleLerpPercent = 0f;
+    [SerializeField]
+    private bool idleSwitch2 = false;
+    [SerializeField]
+    private float idleMoveCounter = 0f;
+    private float idleMoveTimer = 0f;
+    
     public override void ChangeColour(int packNumber)
     {
         FireSwitch(true);
@@ -22,11 +31,61 @@ public class PassiveSoul : Soul
     {
         return gameObject.transform.position;
     }
+    public void IdleRotate()
+    {
 
+        if (!idleSwitch)
+        {
+            idleMoveTimer -= Time.deltaTime; // Decrease timer.
+
+            if (idleMoveTimer <= 0f)
+            {
+                idleRotation = Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f));
+                idleMoveTimer = Random.Range(0.5f, 10f); // Reset timer with random delay.
+                idleSwitch = true;
+            }
+        }
+        else
+        {
+            idleLerpPercent = Mathf.MoveTowards(idleLerpPercent, 1f, Time.deltaTime * 0.25f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, idleRotation, idleLerpPercent);
+            if (idleLerpPercent >= 1f)
+            {
+                transform.position += speed * Time.deltaTime * transform.right;
+                idleSwitch = false;
+                idleLerpPercent = 0f;
+            }
+
+        }
+        
+        
+    }
     public override void IdleMove()
     {
-        throw new System.NotImplementedException();
+        if (!idleSwitch2)
+        {
+            idleMoveTimer -= Time.deltaTime; // Decrease timer.
+
+            if (idleMoveTimer <= 0f)
+            {
+                idleMoveTimer = Random.Range(0.5f, 10f); // Reset timer with random delay.
+                idleSwitch2 = true;
+            }
+        }
+        else
+        {
+            transform.position += 0.5f * Time.deltaTime * transform.right;
+            idleMoveCounter += 0.2f;
+
+            if (idleMoveCounter >= 50f)
+            {
+                idleSwitch2 = false;
+                idleMoveCounter = 0f;
+            }
+        }
     }
+
+
 
     public override void MoveToPoint(Vector3 point)
     {
@@ -61,5 +120,14 @@ public class PassiveSoul : Soul
         MakeUnAvailable();
     }
 
+    private void Update()
+    {
+        if (!fire.activeSelf)
+        {
+            IdleMove();
+            IdleRotate();
+        }
 
+            
+    }
 }

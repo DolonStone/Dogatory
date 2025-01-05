@@ -26,7 +26,7 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private HashSet<Soul> availableSouls;
     [SerializeField] private List<Soul> selectedSouls;
     public int selectedPack = 0;
-    public event Action soulDestruction = delegate { };
+    public event Action<Soul> soulDestruction = delegate { };
     public void SelectSoul(Soul soul)
     {
         if (!selectedSouls.Contains(soul))
@@ -65,7 +65,7 @@ public class SelectionManager : MonoBehaviour
     public void RemoveFromAvailable(Soul soul)
     {
         availableSouls.Remove(soul);
-        soulDestruction.Invoke();
+        soulDestruction.Invoke(soul);
     }
     public HashSet<Soul> GetAvailableSouls()
     {

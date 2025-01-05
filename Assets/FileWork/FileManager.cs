@@ -14,8 +14,8 @@ public class FileManager : MonoBehaviour
 
         for (int i = 0; i < levels.Length; i++)
         {
-            Debug.Log(levels[i].Save());
-            levelStates[i] = levels[i].Save();
+            //Debug.Log(levels[i].Save());
+            //levelStates[i] = levels[i].Save();
             
         }
         
